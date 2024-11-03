@@ -19,3 +19,6 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
     docker-compose run --rm php composer install
 ### Зайти внутрь контейнера:
     docker-compose exec webserver bash
+### Запустить сервера
+    cd basic
+    php yii serve webserver:8080
