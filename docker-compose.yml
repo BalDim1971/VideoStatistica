@@ -1,0 +1,34 @@
+#version: "3.9"
+services:
+  webserver:
+    container_name: PHP-VideoStatistic
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./www:/var/www/html
+#      - ./basic:/var/www/basic
+    ports:
+      - 8123:80
+      - 8124:8080
+#    depends_on:
+#      - mysql-db
+#
+#  mysql-db:
+#    image: dockerhub.timeweb.cloud/mysql:8.0
+#    environment:
+#      MYSQL_ROOT_PASSWORD: password
+#      MYSQL_DATABASE: test_database
+#      MYSQL_USER: db_user
+#      MYSQL_PASSWORD: ukHLIUFNYiulgyi4h
+#    ports:
+#      - "3306:3306"
+#  phpmyadmin:
+#    image: dockerhub.timeweb.cloud/phpmyadmin/phpmyadmin
+#    links:
+#      - mysql-db
+#    ports:
+#      - "8181:80"
+#    environment:
+#      PMA_HOST: mysql-db
+#      MYSQL_ROOT_PASSWORD: password
