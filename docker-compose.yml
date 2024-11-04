@@ -1,27 +1,51 @@
 #version: "3.9"
+
+# Создаем общую сеть default для всех контейнеров
+networks:
+  default:
+    driver: bridge
+
+# Создаем отдельные контейнеры
 services:
+  # Контейнер с веб-приложением
   webserver:
+    # Собираем из Dockerfile
     container_name: PHP-VideoStatistic
     build:
+      # Корнем указываем основной проект
       context: .
       dockerfile: Dockerfile
+    # Линкуем внешнюю папку с исходниками внутрь
     volumes:
       - ./www:/var/www/html
+      - ./basic:/var/www/basic
+    # Показываем наружу 80 порт
     ports:
       - 8123:80
       - 8124:8080
+    # Подключаем к общей сети с другими контейнерами
+    networks:
+      - default
+    # Запускаем только после mysql-db
     depends_on:
       - mysql-db
 
+  # Контейнер с базой данных
   mysql-db:
     image: dockerhub.timeweb.cloud/mysql:8.0
+    # Подключаем к общей сети с другими контейнерами
+    networks:
+      - default
+    # Задаем параметры для инициализации БД
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: video_statistic
       MYSQL_USER: db_user
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: test1234
+    # Показываем наружу порт
     ports:
       - "3306:3306"
+
   phpmyadmin:
     image: dockerhub.timeweb.cloud/phpmyadmin/phpmyadmin
     links:
