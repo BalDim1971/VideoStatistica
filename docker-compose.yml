@@ -7,7 +7,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./www:/var/www/html
-#      - ./basic:/var/www/basic
     ports:
       - 8123:80
       - 8124:8080
