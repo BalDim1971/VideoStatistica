@@ -33,9 +33,9 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 
 Таблица для видео: наименование, длительность (сек), владелец (внешний ключ)
 
-    php yii migrate/create create_videolist_table --fields="
-    name:string(50):notNull,length:integer:notNull,
-    addForeignKey ($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null"
+    php yii migrate/create create_VideoList_table --fields="\
+    name:string(50):notNull,length:integer:notNull, \
+    user_id:integer:notNull:foreignKey(users)"
 
 Таблица стандартных(?) действий пользователя: вошел, вышел, включил звук, выключил звук, поставил отметку(лайк и т.д.)
 наименование поля, действие
@@ -50,6 +50,12 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 
     php yii gii/model --tableName=users --modelClass=Users --ns="app\models"
     
-    php yii gii/controller --actions=index.list --controllerClass=app\\controllers\\User
+    php yii gii/crud --modelClass=app\\models\\Users 
+    --controllerClass=app\\controllers\\UsersController 
 
-    php yii gii/model --tableName=videolist --modelClass=VideoList --ns="app\models"
+    php yii gii/model --tableName=VideoList --modelClass=VideoList --ns="app\models"
+
+    php yii gii/crud --modelClass=app\\models\\VideoList --controllerClass=app\\controllers\\VideoListController 
+
+## Применение миграций
+    php yii migrate up
