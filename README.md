@@ -29,9 +29,7 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 Таблица уникальных пользователей: имя, фамилия, е-мэйл, уникальный 
 идентификатор. Возможно стоит добавить отчество, пол.
 
-    php yii migrate/create create_users_table --fields="
-    first_name:string(30):notNull,last_name:string(30):notNull,
-    email:string(50):notNull,uuid:string(32):notNull"
+    php yii migrate/create create_users_table --fields="first_name:string(30):notNull,last_name:string(30):notNull,email:string(50):notNull,uuid:string(32):notNull"
 
 Таблица для видео: наименование, длительность (сек), владелец (внешний ключ)
 
