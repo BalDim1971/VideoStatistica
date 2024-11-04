@@ -33,6 +33,7 @@ services:
   # Контейнер с базой данных
   mysql-db:
     image: dockerhub.timeweb.cloud/mysql:8.0
+    restart: always
     # Подключаем к общей сети с другими контейнерами
     networks:
       - default
@@ -48,10 +49,14 @@ services:
 
   phpmyadmin:
     image: dockerhub.timeweb.cloud/phpmyadmin/phpmyadmin
+    # Подключаем к общей сети с другими контейнерами
+    networks:
+      - default
     links:
       - mysql-db
     ports:
       - "8181:80"
     environment:
       PMA_HOST: mysql-db
+      PMA_ARBITRARY: 1
       MYSQL_ROOT_PASSWORD: password
