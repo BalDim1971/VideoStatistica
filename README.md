@@ -40,7 +40,7 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 Таблица стандартных(?) действий пользователя: вошел, вышел, включил звук, выключил звук, поставил отметку(лайк и т.д.)
 наименование поля, действие
 
-    php yii migrate/create create_actions_table --field=name:string:notNull,action:string:notNull
+    php yii migrate/create create_actions_table --fields="name:string:notNull, action:string:notNull"
 
 Таблица статистики по каждому пользователю: ссылка на имя (ключ?), ссылка на видео, ссылка на действие, время
 (относительно начала видео ?)
@@ -50,12 +50,13 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 
     php yii gii/model --tableName=users --modelClass=Users --ns="app\models"
     
-    php yii gii/crud --modelClass=app\\models\\Users 
-    --controllerClass=app\\controllers\\UsersController 
+    php yii gii/crud --modelClass=app\\models\\Users --controllerClass=app\\controllers\\UsersController 
 
     php yii gii/model --tableName=VideoList --modelClass=VideoList --ns="app\models"
-
     php yii gii/crud --modelClass=app\\models\\VideoList --controllerClass=app\\controllers\\VideoListController 
+
+    php yii gii/model --tableName=actions --modelClass=Actions --ns="app\models"
+    php yii gii/crud --modelClass=app\\models\\Actions --controllerClass=app\\controllers\\ActionsController 
 
 ## Применение миграций
     php yii migrate up
