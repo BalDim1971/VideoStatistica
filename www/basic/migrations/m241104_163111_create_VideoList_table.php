@@ -17,7 +17,7 @@ class m241104_163111_create_VideoList_table extends Migration
     {
         $this->createTable('{{%VideoList}}', [
             'id' => $this->primaryKey(),
-            '    name' => $this->string(50)->notNull(),
+            'name' => $this->string(50)->notNull(),
             'length' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
         ]);

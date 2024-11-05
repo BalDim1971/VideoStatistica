@@ -31,32 +31,29 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 
     php yii migrate/create create_users_table --fields="first_name:string(30):notNull,last_name:string(30):notNull,email:string(50):notNull,uuid:string(32):notNull"
 
+    php yii gii/model --tableName=users --modelClass=Users --ns="app\models"
+    php yii gii/crud --modelClass=app\\models\\Users --controllerClass=app\\controllers\\UsersController 
+
 Таблица для видео: наименование, длительность (сек), владелец (внешний ключ)
 
-    php yii migrate/create create_VideoList_table --fields="\
-    name:string(50):notNull,length:integer:notNull, \
-    user_id:integer:notNull:foreignKey(users)"
+    php yii migrate/create create_VideoList_table --fields="name:string(50):notNull,length:integer:notNull,user_id:integer:notNull:foreignKey(users)"
+
+    php yii gii/model --tableName=VideoList --modelClass=VideoList --ns="app\models"
+    php yii gii/crud --modelClass=app\\models\\VideoList --controllerClass=app\\controllers\\VideoListController 
 
 Таблица стандартных(?) действий пользователя: вошел, вышел, включил звук, выключил звук, поставил отметку(лайк и т.д.)
 наименование поля, действие
 
     php yii migrate/create create_actions_table --fields="name:string:notNull, action:string:notNull"
 
-Таблица статистики по каждому пользователю: ссылка на имя (ключ?), ссылка на видео, ссылка на действие, время
-(относительно начала видео ?)
-Посмотреть понятия foreignKey, чтобы сделать указатель на внешнюю таблицу
-
-## Формируем модели и контроллеры
-
-    php yii gii/model --tableName=users --modelClass=Users --ns="app\models"
-    
-    php yii gii/crud --modelClass=app\\models\\Users --controllerClass=app\\controllers\\UsersController 
-
-    php yii gii/model --tableName=VideoList --modelClass=VideoList --ns="app\models"
-    php yii gii/crud --modelClass=app\\models\\VideoList --controllerClass=app\\controllers\\VideoListController 
-
     php yii gii/model --tableName=actions --modelClass=Actions --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\Actions --controllerClass=app\\controllers\\ActionsController 
+
+Таблица статистики по каждому пользователю: ссылка на имя (ключ?), ссылка на видео, ссылка на действие, время
+(относительно начала видео ?)
+    
+    php yii migrate/create create_statistica_table --fields="users_id:integer:notNull:foreignKey(users),video_id:integer:notNull:foreignKey(VideoList),action_id:integer:notNull:foreignKey(Actions),time:integer:notNull"
+
 
 ## Применение миграций
     php yii migrate up
