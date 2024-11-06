@@ -49,10 +49,17 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
     php yii gii/model --tableName=actions --modelClass=Actions --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\Actions --controllerClass=app\\controllers\\ActionsController 
 
+Таблица запускаемых видео с временем запуска: ссылка на видео, время старта, время финиша(?).
+    
+    php yii migrate/create create_VideoWork_table --fields="video_id:integer:notNull:foreignKey(VideoList),time_start:timestamp,time_stop:timestamp"
+    
+    php yii gii/model --tableName=VideoWork --modelClass=VideoWork --ns="app\models"
+    php yii gii/crud --modelClass=app\\models\\VideoWork --controllerClass=app\\controllers\\VideoWorkController 
+
 Таблица статистики по каждому пользователю: ссылка на имя (ключ?), ссылка на видео, ссылка на действие, время
 (относительно начала видео ?)
     
-    php yii migrate/create create_statistica_table --fields="users_id:integer:notNull:foreignKey(users),video_id:integer:notNull:foreignKey(VideoList),action_id:integer:notNull:foreignKey(actions),time:integer:notNull"
+    php yii migrate/create create_statistica_table --fields="users_id:integer:notNull:foreignKey(users),video_id:integer:notNull:foreignKey(VideoWork),action_id:integer:notNull:foreignKey(actions),time:integer:notNull"
 
     php yii gii/model --tableName=statistica --modelClass=Statistica --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\Statistica --controllerClass=app\\controllers\\StatisticaController 

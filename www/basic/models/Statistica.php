@@ -15,7 +15,7 @@ use Yii;
  *
  * @property Actions $action
  * @property Users $users
- * @property VideoList $video
+ * @property VideoWork $video
  */
 class Statistica extends \yii\db\ActiveRecord
 {
@@ -37,7 +37,7 @@ class Statistica extends \yii\db\ActiveRecord
             [['users_id', 'video_id', 'action_id', 'time'], 'integer'],
             [['action_id'], 'exist', 'skipOnError' => true, 'targetClass' => Actions::class, 'targetAttribute' => ['action_id' => 'id']],
             [['users_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['users_id' => 'id']],
-            [['video_id'], 'exist', 'skipOnError' => true, 'targetClass' => VideoList::class, 'targetAttribute' => ['video_id' => 'id']],
+            [['video_id'], 'exist', 'skipOnError' => true, 'targetClass' => VideoWork::class, 'targetAttribute' => ['video_id' => 'id']],
         ];
     }
 
@@ -82,6 +82,6 @@ class Statistica extends \yii\db\ActiveRecord
      */
     public function getVideo()
     {
-        return $this->hasOne(VideoList::class, ['id' => 'video_id']);
+        return $this->hasOne(VideoWork::class, ['id' => 'video_id']);
     }
 }
