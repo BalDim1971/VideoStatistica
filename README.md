@@ -34,6 +34,7 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 идентификатор. Возможно стоит добавить отчество, пол.
 
     php yii migrate/create create_users_table --fields="first_name:string(30):notNull,last_name:string(30):notNull,email:string(50):notNull,uuid:string(32):notNull"
+    php yii migrate up
 
     php yii gii/model --tableName=users --modelClass=Users --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\Users --controllerClass=app\\controllers\\UsersController 
@@ -41,6 +42,7 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 Таблица для видео: наименование, длительность (сек), владелец (внешний ключ)
 
     php yii migrate/create create_VideoList_table --fields="name:string(50):notNull,length:integer:notNull,user_id:integer:notNull:foreignKey(users)"
+    php yii migrate up
 
     php yii gii/model --tableName=VideoList --modelClass=VideoList --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\VideoList --controllerClass=app\\controllers\\VideoListController 
@@ -49,6 +51,7 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 наименование поля, действие
 
     php yii migrate/create create_actions_table --fields="name:string:notNull, action:string:notNull"
+    php yii migrate up
 
     php yii gii/model --tableName=actions --modelClass=Actions --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\Actions --controllerClass=app\\controllers\\ActionsController 
@@ -56,6 +59,7 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 Таблица запускаемых видео с временем запуска: ссылка на видео, время старта, время финиша(?).
     
     php yii migrate/create create_VideoWork_table --fields="video_id:integer:notNull:foreignKey(VideoList),time_start:timestamp,time_stop:timestamp"
+    php yii migrate up
     
     php yii gii/model --tableName=VideoWork --modelClass=VideoWork --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\VideoWork --controllerClass=app\\controllers\\VideoWorkController 
@@ -64,9 +68,8 @@ https://thriveread.com/apache-php-with-docker-mysql-and-phpmyadmin/
 (относительно начала видео ?)
     
     php yii migrate/create create_statistica_table --fields="users_id:integer:notNull:foreignKey(users),video_id:integer:notNull:foreignKey(VideoWork),action_id:integer:notNull:foreignKey(actions),time:integer:notNull"
+    php yii migrate up
 
     php yii gii/model --tableName=statistica --modelClass=Statistica --ns="app\models"
     php yii gii/crud --modelClass=app\\models\\Statistica --controllerClass=app\\controllers\\StatisticaController 
 
-## Применение миграций
-    php yii migrate up
